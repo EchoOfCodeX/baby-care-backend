@@ -2,10 +2,7 @@ package com.roudaina.babyCare.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -57,5 +54,10 @@ private LocalDateTime date;
 
 
     //mmmmmm
+
+      @ManyToOne(fetch = FetchType.LAZY)
+       @JoinColumn(name = "baby-id",nullable = false)
+       @ToString.Exclude
+    private Baby baby;
 
 }

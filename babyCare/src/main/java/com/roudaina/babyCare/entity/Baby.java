@@ -1,15 +1,14 @@
 package com.roudaina.babyCare.entity;
 
+import com.roudaina.babyCare.Enum.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -35,7 +34,8 @@ public class Baby {
     @NotNull(message = "Gender is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
-    private String gender;
+    private Gender gender;
+
 
 
     @Min(value = 50, message = "Heart rate must be greater than 50")
@@ -71,6 +71,22 @@ public class Baby {
 
 
     //mmmmmmmm
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id", nullable = false)
+    @ToString.Exclude
+    private Parent parent;
+
+    @OneToMany(mappedBy = "baby", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<HealthRecord> healthRecords;
+
+    @OneToMany(mappedBy = "baby", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<VaccineSchedule> vaccineSchedules;
+
+    @OneToMany(mappedBy = "baby", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<MedicalReminder> medicalReminders;
 
 
 

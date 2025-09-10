@@ -13,6 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class vaccine {
+public class Vaccine {
 
 
     @Id
@@ -57,6 +58,10 @@ public class vaccine {
 
 
     //mmmmmmm
+
+
+    @OneToMany(mappedBy = "vaccine", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VaccineSchedule> vaccineSchedules;
 
 }
 

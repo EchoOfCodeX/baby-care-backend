@@ -1,0 +1,146 @@
+# Baby Care Application Configuration
+spring:
+  application:
+    name: baby-care-backend
+
+  # Database Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/baby_care_db
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 600000
+
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time_zone: UTC
+
+  # JSON Configuration
+  jackson:
+    time-zone: UTC
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      write-dates-as-timestamps: false
+
+  # Multipart file upload
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# Logging Configuration
+logging:
+  level:
+    com.babycare: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# JWT Configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET:mySecretKey123456789012345678901234567890}
+    expiration: 86400000 # 24 hours in milliseconds
+    refresh-expiration: 604800000 # 7 days in milliseconds
+
+# CORS Configuration
+cors:
+  allowed-origins:
+    - "http://localhost:3000"
+    - "http://localhost:4200"
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - OPTIONS
+  allowed-headers: "*"
+  allow-credentials: true
+
+# Management and Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# API Documentation
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+---
+# Development Profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+logging:
+  level:
+    root: DEBUG
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+logging:
+  level:
+    root: WARN
+    com.babycare: INFO
+
+---
+# Test Profile
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
