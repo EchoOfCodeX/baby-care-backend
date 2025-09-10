@@ -30,19 +30,19 @@ public class Vaccine {
     @Column(name = "vaccineId")
     private Long Id;
 
-    @NotBlank(message = "اسم اللقاح مطلوب")
-    @Size(max = 100, message = "اسم اللقاح يجب أن يكون أقل من 100 حرف")
+    @NotBlank(message = "Vaccine name is required")
+    @Size(max = 100, message = "Vaccine name must be less than 100 characters")
     @Column(name = "vaccine_name", unique = true, nullable = false, length = 100)
     private String vaccineName;
 
 
-    @Size(max = 1000, message = "الوصف يجب أن يكون أقل من 1000 حرف")
+    @Size(max = 1000, message = "Description must be less than 1000 characters")
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
 
-    @NotNull(message = "عدد الجرعات المطلوبة مطلوب")
-    @Min(value = 1, message = "عدد الجرعات يجب أن يكون على الأقل 1")
+    @NotNull(message = "Number of required doses is required")
+    @Min(value = 1, message = "Number of doses must be at least 1")
     @Column(name = "required_doses", nullable = false)
     private int dosesRequired;
 

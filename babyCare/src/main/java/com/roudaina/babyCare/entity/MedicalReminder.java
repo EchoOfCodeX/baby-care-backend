@@ -28,25 +28,25 @@ public class MedicalReminder {
     private long id;
 
 
-    @NotNull(message = "نوع التذكير مطلوب")
+    @NotNull(message = "Reminder type is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "reminder_type", nullable = false)
     private ReminderType reminderType;
 
 
-    @NotBlank(message = "عنوان التذكير مطلوب")
-    @Size(max = 200, message = "العنوان يجب أن يكون أقل من 200 حرف")
+    @NotBlank(message = "Reminder title is required")
+    @Size(max = 200, message = "Title must be less than 200 characters")
     @Column(name = "title", nullable = false, length = 200)
     private String title;
 
 
-    @NotNull(message = "تاريخ التذكير مطلوب")
-    @Future(message = "تاريخ التذكير يجب أن يكون في المستقبل")
+    @NotNull(message = "Reminder date is required")
+    @Future(message = "Reminder date must be in the future")
     @Column(name = "reminder_date", nullable = false)
     private LocalDateTime reminderDate;
 
 
-    @NotNull(message = "حالة التذكير مطلوبة")
+    @NotNull(message = "Reminder status is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ReminderStatus status;

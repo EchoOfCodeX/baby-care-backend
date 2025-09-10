@@ -24,13 +24,13 @@ public class VaccineSchedule {
      @Column(name = "scheduleId")
     private long id;
 
-    @NotNull(message = "تاريخ الموعد مطلوب")
-    @Future(message = "تاريخ الموعد يجب أن يكون في المستقبل")
+    @NotNull(message = "Appointment date is required")
+    @Future(message = "Appointment date must be in the future")
     @Column(name = "scheduled_date", nullable = false)
     private LocalDateTime scheduledDate;
 
 
-    @NotNull(message = "حالة اللقاح مطلوبة")
+    @NotNull(message = "Vaccine status is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private VaccineStatus status;
@@ -39,7 +39,7 @@ public class VaccineSchedule {
     @Column(name = "administered_date")
     private LocalDate administeredDate;
 
-    @Size(max = 1000, message = "الملاحظات يجب أن تكون أقل من 1000 حرف")
+    @Size(max = 1000, message = "Notes must be less than 1000 characters")
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
 
