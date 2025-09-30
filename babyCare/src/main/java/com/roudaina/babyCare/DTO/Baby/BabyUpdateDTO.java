@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -16,13 +17,11 @@ public class BabyUpdateDTO {
 
 
     @Size(max = 100, message = "Name must be less than 100 characters")
-    private String name;
+    private String babyName;
 
-    @DecimalMin(value = "30.0", message = "Temperature must be above 30°C")
-    @DecimalMax(value = "45.0", message = "Temperature must be below 45°C")
-    private BigDecimal currentTemperature;
+    @NotNull(message = "تاريخ الميلاد مطلوب")
+    private LocalDate birthDate;
 
-    @Min(value = 50, message = "Heart rate must be above 50")
-    @Max(value = 200, message = "Heart rate must be below 200")
-    private Integer currentHeartRate;
+    @NotBlank(message = "الجنس مطلوب (MALE/FEMALE)")
+    private String gender;
 }

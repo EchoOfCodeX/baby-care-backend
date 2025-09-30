@@ -27,13 +27,13 @@ public class Vaccine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vaccineId")
-    private Long Id;
+    @Column(name = "vaccine_id")
+    private Long id;
 
     @NotBlank(message = "Vaccine name is required")
     @Size(max = 100, message = "Vaccine name must be less than 100 characters")
     @Column(name = "vaccine_name", unique = true, nullable = false, length = 100)
-    private String vaccineName;
+    private String name;
 
 
     @Size(max = 1000, message = "Description must be less than 1000 characters")
@@ -44,7 +44,7 @@ public class Vaccine {
     @NotNull(message = "Number of required doses is required")
     @Min(value = 1, message = "Number of doses must be at least 1")
     @Column(name = "required_doses", nullable = false)
-    private int dosesRequired;
+    private int requiredDoses;
 
 
     @CreationTimestamp

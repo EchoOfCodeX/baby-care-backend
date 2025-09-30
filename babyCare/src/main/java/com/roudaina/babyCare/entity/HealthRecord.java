@@ -18,29 +18,36 @@ public class HealthRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "recordId")
+    @Column(name = "record_id")
     private long id;
 
 
-private LocalDateTime date;
+
 
 
     @Min(value = 50, message = "Heart rate must be greater than 50")
     @Max(value = 200, message =("Heart rate must be less than 200"))
-    @Column(name = "heartrate")
-     private int heartRate;
+    @Column(name = "heartRate")
+     private Integer heartRate;
+
+    //Optional (اختيارية)
+
+   // @Size(max = 1000, message = "Notes must be less than 1000 characters")
+    //@Column(name = "notes", columnDefinition = "TEXT")
+    //private String notes;
 
 
-    @Size(max = 1000, message = "Notes must be less than 1000 characters")
-    @Column(name = "notes", columnDefinition = "TEXT")
-    private String notes;
+
+    @NotNull(message = "تاريخ القياس مطلوب")
+    @Column(name = "record_date", nullable = false)
+    private LocalDateTime recordDate;
 
 
     @DecimalMin(value = "30.0", message = "Temperature must be greater than 30")
     @DecimalMax(value = "45.0", message = "Temperature must be less than 45")
     @Digits(integer = 2, fraction = 2)
     @Column(name = "temperature", precision = 4, scale = 2)
-    private double temperature;
+    private Double temperature;
 
 
 
@@ -56,7 +63,7 @@ private LocalDateTime date;
     //mmmmmm
 
       @ManyToOne(fetch = FetchType.LAZY)
-       @JoinColumn(name = "baby-id",nullable = false)
+       @JoinColumn(name = "baby_id",nullable = false)
        @ToString.Exclude
     private Baby baby;
 

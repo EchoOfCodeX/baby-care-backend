@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -12,6 +13,9 @@ import java.math.BigDecimal;
 @Builder
 public class HealthRecordUpdateDTO {
 
+
+    @NotNull(message = "تاريخ السجل مطلوب")
+    private LocalDateTime recordDate;
 
 
     @DecimalMin(value = "30.0", message = "Temperature must be greater than 30°C")
@@ -22,6 +26,7 @@ public class HealthRecordUpdateDTO {
     @Max(value = 200, message = "Heart rate must be less than 200")
     private Integer heartRate;
 
-    @Size(max = 1000, message = "Notes must be less than 1000 characters")
-    private String notes;
+    //اختيارية
+   // @Size(max = 1000, message = "Notes must be less than 1000 characters")
+    //private String notes;
 }

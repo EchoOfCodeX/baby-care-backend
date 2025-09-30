@@ -1,36 +1,32 @@
 package com.roudaina.babyCare.Mapper;
-
-import com.roudaina.babyCare.DTO.VaccineSchedule.*;
+import com.roudaina.babyCare.DTO.VaccineSchedule.VaccineScheduleResponseDTO;
+import com.roudaina.babyCare.DTO.VaccineSchedule.VaccineScheduleUpdateDTO;
+import com.roudaina.babyCare.DTO.VaccineSchedule.VaccineScheduleRequestDTO;
 import com.roudaina.babyCare.entity.VaccineSchedule;
 import org.mapstruct.*;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-
+import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface VaccineScheduleMapper {
 
 
-    @Mapping(target = "status", constant = "SCHEDULED")
-    VaccineSchedule toEntity(VaccineScheduleRequestDTO dto);
 
-    @Mapping(target = "babyName", source = "baby.name")
-    @Mapping(target = "babyId", source = "baby.babyId")
-    @Mapping(target = "vaccineName", source = "vaccine.vaccineName")
-    @Mapping(target = "vaccineId", source = "vaccine.vaccineId")
-    @Mapping(target = "daysOverdue", expression = "java(getDaysOverdue(entity))")
-    VaccineScheduleResponseDTO toResponseDto(VaccineSchedule entity);
+        // RequestDTO -> Entity
+        @Mapping(target = "id", ignore = true)
+        @Mapping(target = "baby.id", source = "babyId")
+        @Mapping(target = "vaccine.id", source = "vaccineId")
+        VaccineSchedule toEntity(VaccineScheduleRequestDTO dto);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateEntityFromDto(VaccineScheduleUpdateDTO dto, @MappingTarget VaccineSchedule entity);
+        // Entity -> ResponseDTO
+        @Mapping(target = "scheduleId", source = "id")
+        @Mapping(target = "babyId", source = "baby.id")
+        @Mapping(target = "babyName", source = "baby.name")
+        @Mapping(target = "vaccineId", source = "vaccine.id")
+        @Mapping(target = "vaccineName", source = "vaccine.name")
+        VaccineScheduleResponseDTO toResponseDTO(VaccineSchedule entity);
 
-    default Integer getDaysOverdue(VaccineSchedule entity) {
-        if (entity.getStatus() == VaccineSchedule.VaccineStatus.SCHEDULED &&
-                entity.getScheduledDate().isBefore(LocalDate.now())) {
-            return (int) ChronoUnit.DAYS.between(entity.getScheduledDate(), LocalDate.now());
-        }
-        return null;
-    }
-
+        // UpdateDTO -> update Entity
+        @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        void updateEntityFromDto(VaccineScheduleUpdateDTO dto, @MappingTarget VaccineSchedule entity);
 
 }

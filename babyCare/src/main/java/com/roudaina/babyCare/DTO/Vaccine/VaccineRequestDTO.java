@@ -24,6 +24,6 @@ public class VaccineRequestDTO {
 
     @NotNull(message = "Required doses is required")
     @Min(value = 1, message = "Required doses must be at least 1")
-    private Integer requiredDoses;
+    private int requiredDoses;
 
 }

@@ -1,7 +1,10 @@
 package com.roudaina.babyCare.DTO.MedicalReminder;
 
 
-import com.babycare.entity.MedicalReminder.*;
+
+import com.roudaina.babyCare.Enum.RecurrencePattern;
+import com.roudaina.babyCare.Enum.ReminderStatus;
+import com.roudaina.babyCare.entity.MedicalReminder.*;
 import com.roudaina.babyCare.Enum.ReminderType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,12 +35,14 @@ public class MedicalReminderRequestDTO {
     private LocalDateTime reminderDate;
 
     @Size(max = 1000, message = "Notes must be less than 1000 characters")
-    private String notes;
+    private String description;
 
     private Boolean isRecurring = false;
 
     private RecurrencePattern recurrencePattern;
 
+    @NotNull(message = "Baby ID is required")
+    private Long babyId;
 
 
 

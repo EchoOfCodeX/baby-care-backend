@@ -1,6 +1,9 @@
 package com.roudaina.babyCare.HeathRecordDTO;
 
+import com.roudaina.babyCare.Enum.HeartRateStatus;
+import com.roudaina.babyCare.Enum.TemperatureStatus;
 import lombok.*;
+import org.apache.tomcat.util.http.parser.HttpHeaderParser;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,14 +17,14 @@ public class HealthRecordResponseDTO {
 
 
     private Long recordId;
-    private LocalDate measurementDate;
-    private BigDecimal temperature;
+    private LocalDateTime recordDate;
+    private Double temperature;
     private Integer heartRate;
     private String notes;
-    private String babyName;
+    private String  babyName;
     private Long babyId;
-    private String temperatureStatus; // Normal, High, Low
-    private String heartRateStatus;   // Normal, High, Low
+    private TemperatureStatus tperatureStatus; // Normal, High, Low
+    private HeartRateStatus heartRateStatus;   // Normal, High, Low
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

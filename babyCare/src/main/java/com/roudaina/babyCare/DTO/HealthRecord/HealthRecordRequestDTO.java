@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,8 +15,9 @@ import java.time.LocalDate;
 public class HealthRecordRequestDTO {
 
 
-    @NotNull(message = "Measurement date is required")
-    private LocalDate measurementDate;
+
+    @NotNull(message = "تاريخ القياس مطلوب")
+    private LocalDateTime recordDate;
 
     @DecimalMin(value = "30.0", message = "Temperature must be greater than 30°C")
     @DecimalMax(value = "45.0", message = "Temperature must be less than 45°C")
@@ -27,5 +29,9 @@ public class HealthRecordRequestDTO {
 
     @Size(max = 1000, message = "Notes must be less than 1000 characters")
     private String notes;
+
+
+    @NotNull(message = "معرّف الطفل مطلوب")
+    private Long babyId;
 
 }

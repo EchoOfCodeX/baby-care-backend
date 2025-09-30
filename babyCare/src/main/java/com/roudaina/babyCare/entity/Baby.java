@@ -7,11 +7,12 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
-
 @Entity
+@Getter
+@Setter
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,25 +39,11 @@ public class Baby {
 
 
 
-    @Min(value = 50, message = "Heart rate must be greater than 50")
-    @Max(value = 200, message ="Heart rate must be less than 200")
-    @Column(name = "current_heart_rate")
-    private Integer currentHeartRate;
-
-
-
-
-    @DecimalMin(value = "30.0", message = "Temperature must be greater than 30")
-    @DecimalMax(value = "45.0", message = "Temperature must be less than 45")
-    @Digits(integer = 2, fraction = 2)
-    @Column(name = "current_temperature", precision = 4, scale = 2)
-    private double currentTemperature;
-
 
     @NotNull(message = "Date of birth is required")
     @Past(message = "Date of birth must be in the past ")
     @Column(name = "birth_date", nullable = false)
-    private LocalDateTime birth;
+    private LocalDate BirthDate;
 
 
 

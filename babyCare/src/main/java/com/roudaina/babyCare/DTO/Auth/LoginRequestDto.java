@@ -6,6 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Setter
+@Getter
 public class LoginRequestDto {
 
     @NotBlank(message = "اسم المستخدم مطلوب")

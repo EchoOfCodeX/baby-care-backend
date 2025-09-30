@@ -1,33 +1,30 @@
 package com.roudaina.babyCare.Mapper;
-
-
-import com.roudaina.babyCare.DTO.MedicalReminder.*;
+import com.roudaina.babyCare.DTO.MedicalReminder.MedicalReminderResponseDTO;
+import com.roudaina.babyCare.DTO.MedicalReminder.MedicalReminderUpdateDTO;
+import com.roudaina.babyCare.DTO.MedicalReminder.MedicalReminderRequestDTO;
 import com.roudaina.babyCare.entity.MedicalReminder;
 import org.mapstruct.*;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+
+import org.mapstruct.Mapper;
+
 
 @Mapper(componentModel = "spring")
-
 public interface MedicalReminderMapper {
 
+        // RequestDTO -> Entity
+        @Mapping(target = "id", ignore = true) // id auto-generated
+        @Mapping(target = "baby.id", source = "babyId") // ربط العلاقة مع Baby
+        MedicalReminder toEntity(MedicalReminderRequestDTO dto);
 
-    @Mapping(target = "status", constant = "ACTIVE")
-    MedicalReminder toEntity(MedicalReminderRequestDTO dto);
+        // Entity -> ResponseDTO
+        @Mapping(target = "reminderId", source = "id")
+        @Mapping(target = "babyId", source = "baby.id")
+        @Mapping(target = "babyName", source = "baby.name")
+        MedicalReminderResponseDTO toResponseDTO(MedicalReminder entity);
 
-    @Mapping(target = "babyName", source = "baby.name")
-    @Mapping(target = "babyId", source = "baby.babyId")
-    @Mapping(target = "hoursUntilReminder", expression = "java(getHoursUntilReminder(entity))")
-    MedicalReminderResponseDTO toResponseDto(MedicalReminder entity);
+        // Update existing MedicalReminder (ignore null values)
+        @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        void updateMedicalReminderFromDto(MedicalReminderUpdateDTO dto, @MappingTarget MedicalReminder entity);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateEntityFromDto(MedicalReminderUpdateDTO dto, @MappingTarget MedicalReminder entity);
-
-    default Integer getHoursUntilReminder(MedicalReminder entity) {
-        if (entity.getReminderDate() != null && entity.getReminderDate().isAfter(LocalDateTime.now())) {
-            return (int) ChronoUnit.HOURS.between(LocalDateTime.now(), entity.getReminderDate());
-        }
-        return null;
-    }
 }

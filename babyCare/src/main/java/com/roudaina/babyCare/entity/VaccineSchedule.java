@@ -21,19 +21,19 @@ import java.time.LocalDateTime;
 public class VaccineSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     @Column(name = "scheduleId")
+     @Column(name = "schedule_id")
     private long id;
 
     @NotNull(message = "Appointment date is required")
     @Future(message = "Appointment date must be in the future")
     @Column(name = "scheduled_date", nullable = false)
-    private LocalDateTime scheduledDate;
+    private LocalDateTime ScheduledDate;
 
 
     @NotNull(message = "Vaccine status is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private VaccineStatus status;
+    private VaccineStatus Status;
 
 
     @Column(name = "administered_date")

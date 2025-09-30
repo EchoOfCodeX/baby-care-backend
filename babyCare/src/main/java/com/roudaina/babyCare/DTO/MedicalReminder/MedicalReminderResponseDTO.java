@@ -22,13 +22,13 @@ public class MedicalReminderResponseDTO {
     private ReminderType reminderType;
     private String title;
     private LocalDateTime reminderDate;
-    private String notes;
+    private String description;
     private ReminderStatus status;
     private Boolean isRecurring;
     private RecurrencePattern recurrencePattern;
     private String babyName;
     private Long babyId;
-    private Integer hoursUntilReminder; // for upcoming reminders
+  //  private Integer hoursUntilReminder; // for upcoming reminders
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

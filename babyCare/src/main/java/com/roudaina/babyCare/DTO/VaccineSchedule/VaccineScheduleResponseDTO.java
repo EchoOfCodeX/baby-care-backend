@@ -1,6 +1,6 @@
 package com.roudaina.babyCare.DTO.VaccineSchedule;
 
-import com.babycare.entity.VaccineSchedule.VaccineStatus;
+import com.roudaina.babyCare.Enum.VaccineStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

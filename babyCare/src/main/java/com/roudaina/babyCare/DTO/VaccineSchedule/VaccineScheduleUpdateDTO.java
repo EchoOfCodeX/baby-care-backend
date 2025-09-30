@@ -19,7 +19,7 @@ public class VaccineScheduleUpdateDTO {
 
 /// //
     @NotNull(message = "Status is required")
-    private com.roudaina.babyCare.Enum.VaccineStatus status;
+    private com.roudaina.babyCare.Enum.VaccineStatus Status;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate administeredDate;
